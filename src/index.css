@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Perfect DOS VGA 437";
+  src: url("/fonts/PerfectDOSVGA437.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@theme {
+  /* Authentic MS-DOS/VGA text-mode font used by Windows 95. */
+  --font-mono: "Perfect DOS VGA 437", "Lucida Console", "Courier New", monospace;
+  /* Windows 95 UI font (title bar / toolbar). */
+  --font-ui: "Tahoma", "MS Sans Serif", "Segoe UI", Geneva, sans-serif;
+
+  /* Terminal screen (classic light-grey-on-black VGA text). */
+  --color-term-bg: #000000;
+  --color-term-fg: #c0c0c0;
+  --color-term-muted: #808080;
+  --color-term-path: #c0c0c0;
+  --color-term-command: #ffffff;
+  --color-term-accent: #ffffff;
+  --color-term-prompt: #ffffff;
+  --color-term-cursor: #c0c0c0;
+  --color-term-error: #ff5555;
+  --color-term-info: #c0c0c0;
+
+  /* Windows 95 chrome palette. */
+  --color-win95-desktop: #008080;
+  --color-win95-face: #c0c0c0;
+  --color-win95-title: #000080;
+  --color-win95-titletext: #ffffff;
+  --color-win95-light: #dfdfdf;
+  --color-win95-shadow: #808080;
+  --color-win95-dark: #0a0a0a;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-win95-desktop);
+  color: var(--color-term-fg);
+  font-family: var(--font-ui);
+}
+
+/* Square corners everywhere (Win95) + no native focus rings/caret. */
+* {
+  border-radius: 0 !important;
+}
+*:focus {
+  outline: none;
+}
+textarea,
+input {
+  caret-color: transparent;
+}
+
+/* ---- Windows 95 3D bevels (box-shadow technique, 98.css style) ---- */
+.win95-raised {
+  background: var(--color-win95-face);
+  box-shadow:
+    inset -1px -1px var(--color-win95-dark),
+    inset 1px 1px var(--color-win95-titletext),
+    inset -2px -2px var(--color-win95-shadow),
+    inset 2px 2px var(--color-win95-light);
+}
+
+.win95-sunken {
+  background: var(--color-term-bg);
+  box-shadow:
+    inset -1px -1px var(--color-win95-titletext),
+    inset 1px 1px var(--color-win95-shadow),
+    inset -2px -2px var(--color-win95-light),
+    inset 2px 2px var(--color-win95-dark);
+}
+
+.win95-statuspanel {
+  background: var(--color-win95-face);
+  box-shadow:
+    inset 1px 1px var(--color-win95-shadow),
+    inset -1px -1px var(--color-win95-titletext);
+}
+
+.win95-btn {
+  background: var(--color-win95-face);
+  box-shadow:
+    inset -1px -1px var(--color-win95-dark),
+    inset 1px 1px var(--color-win95-titletext),
+    inset -2px -2px var(--color-win95-shadow),
+    inset 2px 2px var(--color-win95-light);
+}
+.win95-btn:active {
+  box-shadow:
+    inset 1px 1px var(--color-win95-dark),
+    inset -1px -1px var(--color-win95-titletext),
+    inset 2px 2px var(--color-win95-shadow),
+    inset -2px -2px var(--color-win95-light);
+}
+
+/* ---- Authentic Windows 95 scrollbar ---- */
+.win95-scroll {
+  scroll-behavior: auto;
+}
+.win95-scroll::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+.win95-scroll::-webkit-scrollbar-track {
+  background-color: var(--color-win95-face);
+  background-image: conic-gradient(
+    #c0c0c0 25%,
+    #ffffff 0 50%,
+    #c0c0c0 0 75%,
+    #ffffff 0
+  );
+  background-size: 2px 2px;
+}
+.win95-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-win95-face);
+  box-shadow:
+    inset -1px -1px var(--color-win95-dark),
+    inset 1px 1px var(--color-win95-titletext),
+    inset -2px -2px var(--color-win95-shadow),
+    inset 2px 2px var(--color-win95-light);
+}
+.win95-scroll::-webkit-scrollbar-button {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-win95-face);
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow:
+    inset -1px -1px var(--color-win95-dark),
+    inset 1px 1px var(--color-win95-titletext),
+    inset -2px -2px var(--color-win95-shadow),
+    inset 2px 2px var(--color-win95-light);
+}
+.win95-scroll::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%3E%3Cpolygon%20points='8,5%204,10%2012,10'%20fill='%23000000'/%3E%3C/svg%3E");
+}
+.win95-scroll::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%3E%3Cpolygon%20points='4,6%2012,6%208,11'%20fill='%23000000'/%3E%3C/svg%3E");
+}
+.win95-scroll::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%3E%3Cpolygon%20points='10,4%2010,12%205,8'%20fill='%23000000'/%3E%3C/svg%3E");
+}
+.win95-scroll::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%3E%3Cpolygon%20points='6,4%206,12%2011,8'%20fill='%23000000'/%3E%3C/svg%3E");
+}
+.win95-scroll::-webkit-scrollbar-button:vertical:start:increment,
+.win95-scroll::-webkit-scrollbar-button:vertical:end:decrement,
+.win95-scroll::-webkit-scrollbar-button:horizontal:start:increment,
+.win95-scroll::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: none;
+}
+.win95-scroll::-webkit-scrollbar-corner {
+  background-color: var(--color-win95-face);
+}
+
+/* Win95 "outline" window drag: inverted dotted rectangle (XOR look). */
+.drag-outline {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  border: 2px dotted #ffffff;
+  background: transparent;
+  mix-blend-mode: difference;
+}
+
+/* Terminal block cursor: solid hard blink. */
+@keyframes term-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.term-cursor {
+  display: inline-block;
+  width: 1ch;
+  height: 1.05em;
+  margin-bottom: -0.15em;
+  background-color: var(--color-term-cursor);
+  animation: term-blink 1.06s step-end infinite;
+}
+
+@keyframes term-cursor-on-char {
+  0%,
+  50% {
+    background-color: var(--color-term-cursor);
+    color: var(--color-term-bg);
+  }
+  50.01%,
+  100% {
+    background-color: transparent;
+    color: var(--color-term-muted);
+  }
+}
+
+.term-cursor-char {
+  animation: term-cursor-on-char 1.06s step-end infinite;
+}

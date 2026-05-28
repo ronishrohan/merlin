@@ -1,0 +1,52 @@
+# Make private? (check [x] = make private)
+
+Check the box `[x]` for each repo you want switched from public to private,
+then send this file back.
+
+- [ ] merlin
+- [ ] ronish.dev — my website
+- [ ] flash
+- [ ] iris
+- [ ] restless (star: 1)
+- [ ] ansiblejenkins
+- [ ] mvnjenkins
+- [ ] ros
+- [ ] design-theeta — website for design theeta
+- [ ] supernova-git
+- [ ] vichaar
+- [ ] health-tracker-flipr
+- [ ] sink
+- [ ] nmit-2025
+- [ ] Srujana_hackathon_bewell
+- [ ] ronishrohan — WARNING: profile README (private = profile page gone)
+- [ ] united-fc-kodagu
+- [ ] shopping
+- [ ] skymatrix
+- [ ] dotfiles — linux dotfiles
+- [ ] drops
+- [ ] rounds
+- [ ] weather — WARNING: GitHub Pages site (goes offline if private)
+- [ ] cmrit-visualizer
+- [ ] gcem-hacks
+- [ ] peerlink
+- [ ] HMS — hostel management mini project
+- [ ] p0rtf0lio
+- [ ] another-one
+- [ ] optacloud-assignment-1
+- [ ] optacloud-assignment
+- [ ] rvitm2024backend
+- [ ] rvitm2024
+- [ ] LND1 — landing page practice
+- [ ] lyrctype — typing tests based on music
+- [ ] waffle — twitter clone (next.js)
+- [ ] music-player
+- [ ] portfolio
+- [ ] cats — backend practice
+- [ ] dynamic-portfolio
+- [ ] calculator
+- [ ] paypeek
+- [ ] notibot
+- [ ] reddit-clone
+- [ ] a-video-calling-website — WARNING: GitHub Pages site (goes offline if private)
+- [ ] ServerCraft
+- [ ] ronishrohan.github.io — WARNING: GitHub Pages site (goes offline if private)

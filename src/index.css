@@ -175,6 +175,14 @@ input {
   mix-blend-mode: difference;
 }
 
+/* VGA text mode had no anti-aliasing. Render the screen with hard pixels so the
+   bitmap font and the block-art banner stay crisp instead of fuzzy/jagged. */
+.term-screen {
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+}
+
 /* Terminal block cursor: solid hard blink. */
 @keyframes term-blink {
   0%,
@@ -190,8 +198,8 @@ input {
 .term-cursor {
   display: inline-block;
   width: 1ch;
-  height: 1.05em;
-  margin-bottom: -0.15em;
+  height: 1em;
+  vertical-align: text-bottom;
   background-color: var(--color-term-cursor);
   animation: term-blink 1.06s step-end infinite;
 }

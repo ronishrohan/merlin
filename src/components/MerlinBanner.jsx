@@ -1,16 +1,14 @@
-const ASCII = String.raw`
-███    ███ ███████ ██████  ██      ██ ███    ██
+const ASCII = `███    ███ ███████ ██████  ██      ██ ███    ██
 ████  ████ ██      ██   ██ ██      ██ ████   ██
 ██ ████ ██ █████   ██████  ██      ██ ██ ██  ██
 ██  ██  ██ ██      ██   ██ ██      ██ ██  ██ ██
-██      ██ ███████ ██   ██ ███████ ██ ██   ████
-`
+██      ██ ███████ ██   ██ ███████ ██ ██   ████`
 
 export default function MerlinBanner() {
   return (
     <pre
       aria-label="Merlin"
-      className="select-none overflow-x-auto whitespace-pre text-[10px] leading-tight text-term-fg sm:text-sm md:text-base"
+      className="m-0 select-none whitespace-pre leading-none text-term-fg"
     >
       {ASCII}
     </pre>

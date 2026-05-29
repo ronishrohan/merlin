@@ -138,18 +138,25 @@ export default function Win95Window({ title, status = 'Ready', children }) {
   }, [])
 
   // Make native scrollbar interactions (arrow buttons, thumb drag, track click)
-  // step too: snap scrollTop to whole lines instead of smooth scrolling. The
-  // near-bottom guard keeps the last line / prompt fully reachable.
+  // step in whole lines. We quantize cumulative movement from the last committed
+  // line: only once travel passes half a line do we commit to the nearest line.
+  // Crucially we ignore smaller movements rather than rounding them, otherwise
+  // the first sub-line frame of the browser's button-scroll animation gets reset
+  // and the animation is cancelled (buttons would not scroll at all).
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
+    let committed = el.scrollTop
     const onScroll = () => {
-      const max = el.scrollHeight - el.clientHeight
-      if (max - el.scrollTop < LINE_PX) return
-      let snapped = Math.round(el.scrollTop / LINE_PX) * LINE_PX
-      if (snapped < 0) snapped = 0
-      if (snapped > max) snapped = max
-      if (Math.abs(snapped - el.scrollTop) >= 1) el.scrollTop = snapped
+      const max = Math.max(0, el.scrollHeight - el.clientHeight)
+      const cur = el.scrollTop
+      if (Math.abs(cur - committed) < LINE_PX / 2) return
+      let target = Math.round(cur / LINE_PX) * LINE_PX
+      if (target < 0) target = 0
+      if (target > max) target = max
+      if (max - target < LINE_PX) target = max // keep the prompt fully visible
+      committed = target
+      if (Math.abs(target - cur) >= 1) el.scrollTop = target
     }
     el.addEventListener('scroll', onScroll, { passive: true })
     return () => el.removeEventListener('scroll', onScroll)

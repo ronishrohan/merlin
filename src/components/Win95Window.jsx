@@ -9,6 +9,7 @@ import {
 
 const NORMAL_W = 'min(960px, 92vw)'
 const NORMAL_H = 'min(680px, 86vh)'
+const LINE_PX = 16 // terminal line height; all scrolling snaps to whole lines
 
 function TitleButton({ children, label, onClick }) {
   return (
@@ -84,7 +85,7 @@ function MenuBar() {
 function StatusPanel({ children, className = '' }) {
   return (
     <div
-      className={`win95-statuspanel flex items-center px-2 text-[11px] leading-none text-black ${className}`}
+      className={`win95-statuspanel flex items-center px-2 py-1 text-[11px] leading-none text-black ${className}`}
     >
       {children}
     </div>
@@ -120,7 +121,7 @@ export default function Win95Window({ title, status = 'Ready', children }) {
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
-    const LINE = 18
+    const LINE = LINE_PX
     const NOTCH = 90
     const STEP = LINE * 3
     let acc = 0
@@ -134,6 +135,24 @@ export default function Win95Window({ title, status = 'Ready', children }) {
     }
     el.addEventListener('wheel', onWheel, { passive: false })
     return () => el.removeEventListener('wheel', onWheel)
+  }, [])
+
+  // Make native scrollbar interactions (arrow buttons, thumb drag, track click)
+  // step too: snap scrollTop to whole lines instead of smooth scrolling. The
+  // near-bottom guard keeps the last line / prompt fully reachable.
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const onScroll = () => {
+      const max = el.scrollHeight - el.clientHeight
+      if (max - el.scrollTop < LINE_PX) return
+      let snapped = Math.round(el.scrollTop / LINE_PX) * LINE_PX
+      if (snapped < 0) snapped = 0
+      if (snapped > max) snapped = max
+      if (Math.abs(snapped - el.scrollTop) >= 1) el.scrollTop = snapped
+    }
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
   }, [])
 
   function startDrag(e) {
